@@ -6,6 +6,10 @@ import ps5Image from './assets/games/ps5-pro.jpg'
 import redDeadImage from './assets/games/red-dead-redemption-2.jpg'
 import gtaImage from './assets/games/gta-vi.jpg'
 import gamerPattern from './assets/games/gamer-pattern.jpg'
+import blackBullsEmblem from './assets/games/black-bulls-emblem.png'
+import discordLogo from './assets/social/discord.png'
+import youtubeLogo from './assets/social/youtube.png'
+import instagramLogo from './assets/social/instagram.png'
 import './App.css'
 
 const categories = [
@@ -31,7 +35,7 @@ const news = [
 function Header() {
   return (
     <header className="site-header" id="inicio">
-      <a className="brand" href="#inicio" aria-label="Noegaming, inicio"><span className="brand-mark">✣</span><span>NOE<span className="brand-accent">GAMING</span></span></a>
+      <a className="brand" href="#inicio" aria-label="Noegaming, inicio"><span className="brand-mark"><img src={blackBullsEmblem} alt="" /></span><span>NOE<span className="brand-accent">GAMING</span></span></a>
       <nav className="main-nav" aria-label="Navegación principal">
         <a className="active" href="#inicio">Inicio</a><a href="#categorias">Categorías</a><a href="#juegos">Juegos</a><a href="#novedades">Novedades</a>
       </nav>
@@ -51,8 +55,7 @@ function Hero() {
         <a className="button" href="#juegos">Explorar juegos <span aria-hidden="true">→</span></a>
       </div>
       <div className="hero-landscape">
-        <img src={gamerPattern} alt="" />
-        <span className="landscape-label">JUEGA · EXPLORA · DISFRUTA</span>
+        <img className="hero-pattern-full" src={gamerPattern} alt="" />
       </div>
     </section>
   )
@@ -110,9 +113,9 @@ function News() {
 function Footer() {
   return (
     <footer className="site-footer" id="comunidad">
-      <div className="footer-brand"><a className="brand" href="#inicio"><span className="brand-mark">✣</span><span>NOE<span className="brand-accent">GAMING</span></span></a><p>Juega. Explora. Disfruta.</p></div>
+      <div className="footer-brand"><a className="brand" href="#inicio"><span className="brand-mark"><img src={blackBullsEmblem} alt="" /></span><span>NOE<span className="brand-accent">GAMING</span></span></a><p>Juega. Explora. Disfruta.</p></div>
       <div className="footer-links"><strong>Explora</strong><a href="#inicio">Inicio</a><a href="#categorias">Categorías</a><a href="#juegos">Juegos</a><a href="#novedades">Novedades</a></div>
-      <div className="footer-social"><strong>Síguenos</strong><div><a href="https://instagram.com" aria-label="Instagram">◎</a><a href="https://youtube.com" aria-label="YouTube">▶</a><a href="https://discord.com" aria-label="Discord">◉</a></div></div>
+      <div className="footer-social"><strong>Síguenos</strong><div><a href="https://instagram.com" aria-label="Instagram" target="_blank" rel="noreferrer"><img className="social-icon" src={instagramLogo} alt="" /></a><a href="https://youtube.com" aria-label="YouTube" target="_blank" rel="noreferrer"><img className="social-icon" src={youtubeLogo} alt="" /></a><a href="https://discord.com" aria-label="Discord" target="_blank" rel="noreferrer"><img className="social-icon" src={discordLogo} alt="" /></a></div></div>
       <small>© 2026 Noegaming.<br />Todos los derechos reservados.</small>
     </footer>
   )
@@ -123,5 +126,11 @@ function App() {
 }
 
 export default App
+
+
+
+
+
+
 
 

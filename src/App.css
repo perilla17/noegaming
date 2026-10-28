@@ -108,3 +108,238 @@
   pointer-events: none;
 }
 .hero-landscape .landscape-label { z-index: 1; }
+:root {
+  --ink: #15120f;
+  --gold: #c8a653;
+  --gold-light: #ead18a;
+  --line: #3f3524;
+}
+.page-shell { background: #f6f3eb; color: #211d17; }
+.site-header, .site-footer { background: #15120f; }
+.brand-mark {
+  width: 38px;
+  height: 40px;
+  padding: 2px;
+  overflow: hidden;
+  border: 1px solid #a88943;
+  border-radius: 9px;
+  background: radial-gradient(circle, #45371f, #17130d 72%);
+  box-shadow: 0 0 12px #d0aa4c35;
+}
+.brand-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 3px #f0cf7290);
+}
+.brand-accent { color: var(--gold-light); }
+.main-nav a.active::after { background: var(--gold); }
+.search-box { border-color: #4d422e; background: #252017; }
+.hero {
+  background:
+    linear-gradient(90deg, #15120f 0%, #15120f 38%, #15120fdd 53%, #15120f70 77%, #15120f22),
+    radial-gradient(ellipse at 80% 20%, #c5ad7390 0%, #796442 27%, #42351f 49%, #17130f 76%);
+}
+.hero .eyebrow { color: var(--gold-light); }
+.hero h1 span { color: var(--gold-light); }
+.eyebrow { color: #80652f; }
+.button {
+  background: linear-gradient(105deg, #ead18a, #bd9648);
+  color: #21190c !important;
+  box-shadow: 0 5px 16px #b18a3f45;
+}
+.button:hover { background: linear-gradient(105deg, #f3dfaa, #c9a75f); }
+.text-link { color: #87682e !important; }
+.game-genre, .news-art > span {
+  background: linear-gradient(100deg, #e5cb7e, #bb9140);
+  color: #241a0b;
+}
+.game-card, .news-card { border-color: #ddd4c2; }
+.hero-landscape > .hero-pattern {
+  filter: grayscale(.25) sepia(.42) saturate(1.15) contrast(1.05) brightness(.82);
+}
+.hero-landscape > .hero-emblem {
+  position: absolute;
+  inset: auto 17% auto auto;
+  top: 50%;
+  z-index: 2;
+  width: clamp(90px, 14vw, 175px);
+  height: auto;
+  object-fit: contain;
+  opacity: .18;
+  filter: drop-shadow(0 0 12px #c8a653);
+  mix-blend-mode: screen;
+}
+.hero-landscape::after {
+  z-index: 1;
+  background: linear-gradient(90deg, #15120f 0%, #15120f55 24%, transparent 62%, #15120f26 100%);
+}
+.hero-landscape .landscape-label { z-index: 3; color: #ead18a; }
+.hero-landscape > .hero-pattern {
+  z-index: 0;
+  transform: scale(1.08);
+  filter: blur(18px) brightness(.48) saturate(.85);
+  opacity: .95;
+}
+.hero-landscape > .hero-pattern-full {
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  opacity: 1;
+  filter: none;
+  mix-blend-mode: normal;
+}
+.hero-landscape::after {
+  z-index: 2;
+  background: linear-gradient(90deg, #15120f 0%, #15120f55 20%, transparent 56%, #15120f18 100%);
+}
+.hero-landscape .landscape-label { z-index: 3; }
+@media (min-width: 761px) {
+  .hero { min-height: clamp(300px, 39vw, 455px); }
+}
+.hero-landscape > .hero-pattern { display: none; }
+.hero-landscape > .hero-pattern-full {
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 1;
+  filter: none;
+  mix-blend-mode: normal;
+}
+.hero-landscape::after { content: none; }
+.landscape-label { display: none; }
+
+@media (max-width: 760px) {
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding: 30px 23px;
+  }
+  .hero-copy {
+    width: 100%;
+    max-width: none;
+  }
+  .hero-copy p { max-width: 100%; }
+  .hero-landscape {
+    position: relative;
+    inset: auto;
+    width: calc(100% + 46px);
+    height: 220px;
+    min-height: 0;
+    margin: 24px -23px -30px;
+    border-top: 1px solid #bd83ff8c;
+    background: #140923;
+    box-shadow: 0 -8px 28px #a22cff25, inset 0 0 28px #a22cff20;
+  }
+  .hero-landscape > .hero-pattern-full {
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    filter: saturate(1.25) contrast(1.06) brightness(.98);
+  }
+}
+.hero-landscape {
+  border-left: 1px solid #c8a65355;
+  box-shadow: inset 0 0 26px #9d3dff20, 0 0 22px #9d3dff14;
+}
+.hero-landscape > .hero-pattern-full {
+  filter: saturate(1.2) contrast(1.05) brightness(.98);
+}
+@media (min-width: 761px) {
+  .hero-landscape {
+    inset: 0 0 0 39%;
+    height: 100%;
+    min-height: 0;
+    border-left: 2px solid #bd83ff9c;
+    box-shadow: inset 0 0 42px #922cff35, 0 0 28px #922cff20;
+  }
+  .hero-landscape > .hero-pattern-full {
+    object-fit: cover;
+    object-position: center;
+    filter: saturate(1.35) contrast(1.08) brightness(1.02);
+  }
+}
+@media (max-width: 760px) {
+  .hero-landscape {
+    border-left: 0;
+    border-top: 2px solid #bd83ff9c;
+    box-shadow: 0 -8px 30px #922cff30, inset 0 0 32px #922cff24;
+  }
+  .hero-landscape > .hero-pattern-full {
+    filter: saturate(1.35) contrast(1.08) brightness(1.02);
+  }
+}
+@media (min-width: 901px) {
+  .hero {
+    min-height: clamp(300px, 34vw, 455px);
+    grid-template-columns: .95fr 1.05fr;
+  }
+  .hero-copy {
+    width: 100%;
+    max-width: 100%;
+  }
+  .hero h1 { font-size: clamp(30px, 3.3vw, 42px); }
+  .hero-copy p { max-width: 100%; }
+  .hero-landscape { inset: 0 0 0 48%; }
+}
+@media (max-width: 900px) {
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    padding: 28px 23px 0;
+  }
+  .hero-copy {
+    width: 100%;
+    max-width: none;
+  }
+  .hero h1 {
+    max-width: 620px;
+    font-size: clamp(28px, 6vw, 40px);
+    line-height: 1.04;
+  }
+  .hero-copy p {
+    width: 100%;
+    max-width: 620px;
+    font-size: 12px;
+    line-height: 1.65;
+  }
+  .hero-landscape {
+    position: relative;
+    inset: auto;
+    width: calc(100% + 46px);
+    height: clamp(180px, 30vw, 250px);
+    min-height: 0;
+    margin: 22px -23px 0;
+  }
+  .hero-landscape > .hero-pattern-full {
+    object-fit: cover;
+    object-position: center;
+  }
+}
+.footer-social > div a {
+  width: 27px;
+  height: 27px;
+  display: grid;
+  place-items: center;
+}
+.footer-social .social-icon {
+  display: block;
+  width: 21px;
+  height: 21px;
+  object-fit: contain;
+  filter: invert(1) contrast(100) sepia(1) saturate(500%) hue-rotate(4deg) brightness(.9);
+  mix-blend-mode: screen;
+  transition: transform .2s, filter .2s;
+}
+.footer-social a:hover .social-icon {
+  transform: scale(1.12);
+  filter: invert(1) contrast(100) sepia(1) saturate(650%) hue-rotate(4deg) brightness(1.08);
+}
