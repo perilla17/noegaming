@@ -138,7 +138,8 @@ function Games() {
       <div className="game-grid">
         {games.map((game) => <article className="game-card" key={game.name}>
           <a className={`game-art ${game.art}`} href="#comunidad" aria-label={`Descubrir ${game.name}`}>
-            <img src={game.image} alt={game.name} />
+            {game.art === 'minecraft' && <img className="game-art-backdrop" src={game.image} alt="" aria-hidden="true" />}
+            <img className={game.art === 'minecraft' ? 'game-art-main' : undefined} src={game.image} alt={game.name} />
             <span className="game-genre">{game.genre}</span>
           </a>
           <div className="game-info"><h3>{game.name}</h3><p>{game.description}</p></div>

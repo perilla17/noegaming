@@ -48,7 +48,8 @@
   transition: transform .35s;
 }
 .game-card:hover .game-art img { transform: scale(1.04); }
-.game-art.minecraft img { object-fit: contain; }
+.game-art.minecraft .game-art-backdrop { z-index: -2; object-fit: cover; filter: blur(9px) brightness(.62); transform: scale(1.08); }
+.game-art.minecraft .game-art-main { z-index: -1; object-fit: contain; }
 .game-art::before,
 .game-art::after { content: none; }
 .news-art::before,
