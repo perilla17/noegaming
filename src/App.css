@@ -343,3 +343,35 @@
   transform: scale(1.12);
   filter: invert(1) contrast(100) sepia(1) saturate(650%) hue-rotate(4deg) brightness(1.08);
 }
+
+.shop-section { padding-bottom: 28px; }
+.shop-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.shop-card { overflow: hidden; border: 1px solid #3f3524; border-radius: 9px; background: #1b1814; box-shadow: 0 6px 18px #241a0d16; }
+.shop-art { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-start; gap: 5px; padding: 14px; aspect-ratio: 16 / 9; color: #fff8e8; isolation: isolate; }
+.shop-art::before, .shop-art::after { content: ''; position: absolute; z-index: -1; }
+.shop-art::before { inset: 0; opacity: .9; }
+.shop-art::after { inset: 35% 0 0; background: linear-gradient(transparent, #100d0be8); }
+.shop-art.has-image::before { background: linear-gradient(135deg, #15120f28, transparent 60%); opacity: 1; }
+.shop-art.has-image::after { inset: 0; background: linear-gradient(180deg, #100d0b35 0%, transparent 38%, #100d0b16 100%); }
+.shop-art > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform .35s; }
+.shop-card:hover .shop-art > img { transform: scale(1.04); }
+.shop-art.clover::before { background: radial-gradient(ellipse at 70% 20%, #76602e 0, transparent 34%), linear-gradient(135deg, transparent 40%, #17120b 41% 52%, transparent 53%), linear-gradient(140deg,#473718,#18130c 70%); }
+.shop-art.spider::before { background: radial-gradient(ellipse at 72% 15%, #db3435 0, transparent 35%), linear-gradient(125deg, transparent 37%, #252b3e 38% 52%, transparent 53%), linear-gradient(140deg,#802126,#15172b 70%); }
+.shop-art.nier::before { background: radial-gradient(ellipse at 75% 18%, #d8d0b7 0, transparent 32%), linear-gradient(145deg, transparent 40%, #34342c 41% 55%, transparent 56%), linear-gradient(135deg,#66604d,#22221e 72%); }
+.shop-art.has-image.clover::before,
+.shop-art.has-image.spider::before,
+.shop-art.has-image.nier::before { background: linear-gradient(135deg, #15120f20, transparent 60%); opacity: 1; }
+.shop-platform { align-self: flex-start; padding: 5px 8px; border: 1px solid #ead18a70; border-radius: 30px; background: #15120fbb; color: #ead18a; font-size: 9px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; }
+.shop-info { min-height: 83px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.shop-genre { color: #e5c66a; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; }
+.shop-info h3 { margin: 4px 0 2px; color: #fff7e5; font-size: 13px; }
+.shop-info p { margin: 0; color: #c9c0ad; font-size: 10px; }
+.shop-button { flex-shrink: 0; padding: 9px 11px; display: inline-flex; align-items: center; gap: 8px; border-radius: 6px; background: linear-gradient(105deg, #ead18a, #bd9648); color: #21190c !important; font-size: 10px; font-weight: 800; transition: transform .2s, box-shadow .2s; }
+.shop-button-hover { display: none; }
+.shop-button:hover, .shop-button:focus-visible { transform: translateY(-2px); box-shadow: 0 5px 14px #b18a3f45; }
+.shop-button:hover .shop-button-default, .shop-button:focus-visible .shop-button-default { display: none; }
+.shop-button:hover .shop-button-hover, .shop-button:focus-visible .shop-button-hover { display: inline; }
+@media (max-width: 760px) {
+  .shop-grid { grid-template-columns: 1fr; gap: 12px; }
+  .shop-art { aspect-ratio: 16 / 9; }
+}

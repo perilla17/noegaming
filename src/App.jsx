@@ -7,6 +7,9 @@ import redDeadImage from './assets/games/red-dead-redemption-2.jpg'
 import gtaImage from './assets/games/gta-vi.jpg'
 import gamerPattern from './assets/games/gamer-pattern.jpg'
 import blackBullsEmblem from './assets/games/black-bulls-emblem.png'
+import blackCloverImage from './assets/games/black-clover.jpg'
+import nierAutomataImage from './assets/games/nier-automata.jpg'
+import marvelSpidermanImage from './assets/games/marvel-spiderman.jpg'
 import discordLogo from './assets/social/discord.png'
 import youtubeLogo from './assets/social/youtube.png'
 import instagramLogo from './assets/social/instagram.png'
@@ -32,12 +35,18 @@ const news = [
   { label: 'PRÓXIMAMENTE', title: 'Grand Theft Auto VI', date: '5 oct. 2025', text: 'Una nueva historia te espera en las calles de Vice City.', art: 'wilds', image: gtaImage },
 ]
 
+const shopGames = [
+  { name: 'Black Clover', subtitle: 'Quartet Knights', platform: 'PlayStation 4', genre: 'Acción y aventura', theme: 'clover', image: blackCloverImage },
+  { name: 'Marvel’s Spider-Man 2', subtitle: 'La aventura continúa', platform: 'PlayStation 5', genre: 'Acción', theme: 'spider', image: marvelSpidermanImage },
+  { name: 'NieR:Automata', subtitle: 'YoRHa Edition', platform: 'PlayStation 4', genre: 'RPG de acción', theme: 'nier', image: nierAutomataImage },
+]
+
 function Header() {
   return (
     <header className="site-header" id="inicio">
       <a className="brand" href="#inicio" aria-label="Noegaming, inicio"><span className="brand-mark"><img src={blackBullsEmblem} alt="" /></span><span>NOE<span className="brand-accent">GAMING</span></span></a>
       <nav className="main-nav" aria-label="Navegación principal">
-        <a className="active" href="#inicio">Inicio</a><a href="#categorias">Categorías</a><a href="#juegos">Juegos</a><a href="#novedades">Novedades</a>
+        <a className="active" href="#inicio">Inicio</a><a href="#categorias">Categorías</a><a href="#juegos">Juegos</a><a href="#tienda">Tienda</a><a href="#novedades">Novedades</a>
       </nav>
       <label className="search-box"><span aria-hidden="true">⌕</span><input type="search" placeholder="Buscar juegos..." aria-label="Buscar juegos" /></label>
       <a className="profile-link" href="#comunidad" aria-label="Ir a la comunidad">♙</a>
@@ -110,11 +119,32 @@ function News() {
   )
 }
 
+function Shop() {
+  return (
+    <section className="content-section shop-section" id="tienda">
+      <SectionTitle overline="ELIGE TU PRÓXIMA AVENTURA" title="Compra tu próximo juego" />
+      <p className="section-intro">Explora nuestra selección y consulta las opciones para cada título.</p>
+      <div className="shop-grid">
+        {shopGames.map((game) => <article className="shop-card" key={game.name}>
+          <div className={`shop-art has-image ${game.theme}`}>
+            <img src={game.image} alt={`Imagen de ${game.name}`} />
+            <span className="shop-platform">{game.platform}</span>
+          </div>
+          <div className="shop-info">
+            <div><span className="shop-genre">{game.genre}</span><h3>{game.name}</h3><p>{game.platform}</p></div>
+            <a className="shop-button" href="#comunidad" aria-label={`Consultar ${game.name}`}><span className="shop-button-default">Consultar</span><span className="shop-button-hover" aria-hidden="true">Comprar ahora</span><span aria-hidden="true">→</span></a>
+          </div>
+        </article>)}
+      </div>
+    </section>
+  )
+}
+
 function Footer() {
   return (
     <footer className="site-footer" id="comunidad">
       <div className="footer-brand"><a className="brand" href="#inicio"><span className="brand-mark"><img src={blackBullsEmblem} alt="" /></span><span>NOE<span className="brand-accent">GAMING</span></span></a><p>Juega. Explora. Disfruta.</p></div>
-      <div className="footer-links"><strong>Explora</strong><a href="#inicio">Inicio</a><a href="#categorias">Categorías</a><a href="#juegos">Juegos</a><a href="#novedades">Novedades</a></div>
+      <div className="footer-links"><strong>Explora</strong><a href="#inicio">Inicio</a><a href="#categorias">Categorías</a><a href="#juegos">Juegos</a><a href="#tienda">Tienda</a><a href="#novedades">Novedades</a></div>
       <div className="footer-social"><strong>Síguenos</strong><div><a href="https://instagram.com" aria-label="Instagram" target="_blank" rel="noreferrer"><img className="social-icon" src={instagramLogo} alt="" /></a><a href="https://youtube.com" aria-label="YouTube" target="_blank" rel="noreferrer"><img className="social-icon" src={youtubeLogo} alt="" /></a><a href="https://discord.com" aria-label="Discord" target="_blank" rel="noreferrer"><img className="social-icon" src={discordLogo} alt="" /></a></div></div>
       <small>© 2026 Noegaming.<br />Todos los derechos reservados.</small>
     </footer>
@@ -122,7 +152,7 @@ function Footer() {
 }
 
 function App() {
-  return <div className="page-shell"><Header /><main><Hero /><div className="content-wrap"><Categories /><Games /><News /></div></main><Footer /></div>
+  return <div className="page-shell"><Header /><main><Hero /><div className="content-wrap"><Categories /><Games /><Shop /><News /></div></main><Footer /></div>
 }
 
 export default App
