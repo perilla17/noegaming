@@ -1,3 +1,4 @@
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import codImage from './assets/games/cod.jpeg'
 import forzaImage from './assets/games/Forza.jpeg'
 import minecraftImage from './assets/games/minecraft.jpg'
@@ -41,12 +42,55 @@ const shopGames = [
   { name: 'NieR:Automata', subtitle: 'YoRHa Edition', platform: 'PlayStation 4', genre: 'RPG de acción', theme: 'nier', image: nierAutomataImage },
 ]
 
+const navItems = [
+  { label: 'Inicio', href: '#inicio' },
+  { label: 'Categorías', href: '#categorias' },
+  { label: 'Juegos', href: '#juegos' },
+  { label: 'Tienda', href: '#tienda' },
+  { label: 'Novedades', href: '#novedades' },
+]
+
 function Header() {
+  const [activeHref, setActiveHref] = useState('#inicio')
+  const [indicator, setIndicator] = useState({ left: 0, width: 0 })
+  const navRef = useRef(null)
+
+  useLayoutEffect(() => {
+    const updateIndicator = () => {
+      const nav = navRef.current
+      const activeLink = nav?.querySelector(`[href="${activeHref}"]`)
+      if (!nav || !activeLink) return
+      const navBounds = nav.getBoundingClientRect()
+      const linkBounds = activeLink.getBoundingClientRect()
+      setIndicator({ left: linkBounds.left - navBounds.left, width: linkBounds.width })
+    }
+
+    updateIndicator()
+    window.addEventListener('resize', updateIndicator)
+    return () => window.removeEventListener('resize', updateIndicator)
+  }, [activeHref])
+
+  useEffect(() => {
+    const sections = navItems
+      .map(({ href }) => document.querySelector(href))
+      .filter(Boolean)
+    const observer = new IntersectionObserver((entries) => {
+      const visibleSections = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
+      if (visibleSections[0]) setActiveHref(`#${visibleSections[0].target.id}`)
+    }, { rootMargin: '-20% 0px -65% 0px', threshold: 0 })
+
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <header className="site-header" id="inicio">
+    <header className="site-header" id="encabezado">
       <a className="brand" href="#inicio" aria-label="Noegaming, inicio"><span className="brand-mark"><img src={blackBullsEmblem} alt="" /></span><span>NOE<span className="brand-accent">GAMING</span></span></a>
-      <nav className="main-nav" aria-label="Navegación principal">
-        <a className="active" href="#inicio">Inicio</a><a href="#categorias">Categorías</a><a href="#juegos">Juegos</a><a href="#tienda">Tienda</a><a href="#novedades">Novedades</a>
+      <nav className="main-nav" aria-label="Navegación principal" ref={navRef}>
+        {navItems.map(({ label, href }) => <a key={href} href={href} className={activeHref === href ? 'active' : ''} aria-current={activeHref === href ? 'location' : undefined} onClick={() => setActiveHref(href)}>{label}</a>)}
+        <span className="nav-indicator" aria-hidden="true" style={{ transform: `translateX(${indicator.left}px)`, width: `${indicator.width}px` }} />
       </nav>
       <label className="search-box"><span aria-hidden="true">⌕</span><input type="search" placeholder="Buscar juegos..." aria-label="Buscar juegos" /></label>
       <a className="profile-link" href="#comunidad" aria-label="Ir a la comunidad">♙</a>
@@ -56,7 +100,7 @@ function Header() {
 
 function Hero() {
   return (
-    <section className="hero">
+    <section className="hero" id="inicio">
       <div className="hero-copy">
         <div className="eyebrow">BIENVENIDO A NOEGAMING</div>
         <h1>Descubre nuevos<br />mundos, juega <span>sin límites.</span></h1>
