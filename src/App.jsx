@@ -1,4 +1,8 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { Link, Route, Routes, useLocation } from 'react-router'
+import CatalogoJuegos from './CatalogoJuegos.jsx'
+import Favoritos from './Favoritos.jsx'
+import JuegoCard from './JuegoCard.jsx'
 import codImage from './assets/games/cod.jpeg'
 import forzaImage from './assets/games/Forza.jpeg'
 import minecraftImage from './assets/games/minecraft.jpg'
@@ -24,10 +28,10 @@ const categories = [
 ]
 
 const games = [
-  { name: 'Forza Horizon 6', genre: 'Carreras', description: 'Corre sin límites en un mundo abierto lleno de velocidad.', art: 'forza', image: forzaImage },
-  { name: 'The Legend of Zelda', genre: 'Aventura', description: 'Explora tierras misteriosas y vive una aventura épica.', art: 'zelda', image: zeldaImage },
-  { name: 'Call of Duty: Black Ops 6', genre: 'Shooter', description: 'Forma tu escuadrón y lánzate a una intensa misión.', art: 'warzone', image: codImage },
-  { name: 'Minecraft', genre: 'Sandbox', description: 'Construye, explora y crea tu propio mundo.', art: 'minecraft', image: minecraftImage },
+  { id: 'forza-horizon-6', name: 'Forza Horizon 6', genre: 'Carreras', description: 'Corre sin límites en un mundo abierto lleno de velocidad.', art: 'forza', image: forzaImage },
+  { id: 'the-legend-of-zelda', name: 'The Legend of Zelda', genre: 'Aventura', description: 'Explora tierras misteriosas y vive una aventura épica.', art: 'zelda', image: zeldaImage },
+  { id: 'call-of-duty-black-ops-6', name: 'Call of Duty: Black Ops 6', genre: 'Shooter', description: 'Forma tu escuadrón y lánzate a una intensa misión.', art: 'warzone', image: codImage },
+  { id: 'minecraft', name: 'Minecraft', genre: 'Sandbox', description: 'Construye, explora y crea tu propio mundo.', art: 'minecraft', image: minecraftImage },
 ]
 
 const news = [
@@ -43,22 +47,25 @@ const shopGames = [
 ]
 
 const navItems = [
-  { label: 'Inicio', href: '#inicio' },
-  { label: 'Categorías', href: '#categorias' },
-  { label: 'Juegos', href: '#juegos' },
-  { label: 'Tienda', href: '#tienda' },
-  { label: 'Novedades', href: '#novedades' },
+  { label: 'Inicio', to: '/' },
+  { label: 'Categorías', to: '/#categorias', section: '#categorias' },
+  { label: 'Juegos', to: '/catalogo' },
+  { label: 'Favoritos', to: '/favoritos' },
+  { label: 'Tienda', to: '/#tienda', section: '#tienda' },
+  { label: 'Novedades', to: '/#novedades', section: '#novedades' },
 ]
 
-function Header() {
-  const [activeHref, setActiveHref] = useState('#inicio')
+function Header({ cantidadFavoritos }) {
+  const location = useLocation()
+  const [activeHref, setActiveHref] = useState('/')
   const [indicator, setIndicator] = useState({ left: 0, width: 0 })
   const navRef = useRef(null)
+  const selectedHref = location.pathname === '/' ? activeHref : location.pathname
 
   useLayoutEffect(() => {
     const updateIndicator = () => {
       const nav = navRef.current
-      const activeLink = nav?.querySelector(`[href="${activeHref}"]`)
+      const activeLink = nav?.querySelector(`[data-nav="${selectedHref}"]`)
       if (!nav || !activeLink) return
       const navBounds = nav.getBoundingClientRect()
       const linkBounds = activeLink.getBoundingClientRect()
@@ -68,32 +75,44 @@ function Header() {
     updateIndicator()
     window.addEventListener('resize', updateIndicator)
     return () => window.removeEventListener('resize', updateIndicator)
-  }, [activeHref])
+  }, [selectedHref])
 
   useEffect(() => {
-    const sections = navItems
-      .map(({ href }) => document.querySelector(href))
-      .filter(Boolean)
+    if (location.pathname !== '/') return undefined
+    const sectionLinks = [
+      { selector: '#inicio', target: '/' },
+      ...navItems.filter(({ section }) => section).map(({ section }) => ({ selector: section, target: section })),
+    ]
+    const sections = sectionLinks.map(({ selector }) => document.querySelector(selector)).filter(Boolean)
     const observer = new IntersectionObserver((entries) => {
       const visibleSections = entries
         .filter((entry) => entry.isIntersecting)
         .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
-      if (visibleSections[0]) setActiveHref(`#${visibleSections[0].target.id}`)
+      if (visibleSections[0]) {
+        const active = sectionLinks.find(({ selector }) => selector === `#${visibleSections[0].target.id}`)
+        if (active) setActiveHref(active.target)
+      }
     }, { rootMargin: '-20% 0px -65% 0px', threshold: 0 })
 
     sections.forEach((section) => observer.observe(section))
     return () => observer.disconnect()
-  }, [])
+  }, [location.pathname, location.hash])
 
   return (
     <header className="site-header" id="encabezado">
-      <a className="brand" href="#inicio" aria-label="Noegaming, inicio"><span className="brand-mark"><img src={blackBullsEmblem} alt="" /></span><span>NOE<span className="brand-accent">GAMING</span></span></a>
+      <Link className="brand" to="/" aria-label="Noegaming, inicio"><span className="brand-mark"><img src={blackBullsEmblem} alt="" /></span><span>NOE<span className="brand-accent">GAMING</span></span></Link>
       <nav className="main-nav" aria-label="Navegación principal" ref={navRef}>
-        {navItems.map(({ label, href }) => <a key={href} href={href} className={activeHref === href ? 'active' : ''} aria-current={activeHref === href ? 'location' : undefined} onClick={() => setActiveHref(href)}>{label}</a>)}
+        {navItems.map(({ label, to, section }) => {
+          const target = section || to
+          const isActive = selectedHref === target
+          return <Link key={to} to={to} data-nav={target} className={isActive ? 'active' : ''} aria-current={isActive ? 'page' : undefined} onClick={() => setActiveHref(target)}>
+            {label}{label === 'Favoritos' && cantidadFavoritos > 0 && <span className="nav-favorites-count">{cantidadFavoritos}</span>}
+          </Link>
+        })}
         <span className="nav-indicator" aria-hidden="true" style={{ transform: `translateX(${indicator.left}px)`, width: `${indicator.width}px` }} />
       </nav>
       <label className="search-box"><span aria-hidden="true">⌕</span><input type="search" placeholder="Buscar juegos..." aria-label="Buscar juegos" /></label>
-      <a className="profile-link" href="#comunidad" aria-label="Ir a la comunidad">♙</a>
+      <Link className="profile-link" to="/#comunidad" aria-label="Ir a la comunidad">♙</Link>
     </header>
   )
 }
@@ -130,19 +149,13 @@ function Categories() {
   )
 }
 
-function Games() {
+function Games({ favoritos, onToggleFavorito }) {
   return (
     <section className="content-section games-section" id="juegos">
       <SectionTitle overline="PARA TU PRÓXIMA PARTIDA" title="Juegos destacados" link="Ver todos" href="#juegos" />
       <p className="section-intro">Los favoritos de la comunidad, listos para descubrir.</p>
       <div className="game-grid">
-        {games.map((game) => <article className="game-card" key={game.name}>
-          <a className={`game-art ${game.art}`} href="#comunidad" aria-label={`Descubrir ${game.name}`}>
-            <img src={game.image} alt={game.name} />
-            <span className="game-genre">{game.genre}</span>
-          </a>
-          <div className="game-info"><h3>{game.name}</h3><p>{game.description}</p></div>
-        </article>)}
+        {games.map((game) => <JuegoCard key={game.id} juego={game} esFavorito={favoritos.includes(game.id)} onToggleFavorito={onToggleFavorito} />)}
       </div>
     </section>
   )
@@ -155,7 +168,7 @@ function News() {
       <p className="section-intro">Lanzamientos, noticias y recomendaciones para ti.</p>
       <div className="news-grid">
         {news.map((item) => <article className="news-card" key={item.title}>
-          <a className={`news-art ${item.art}`} href="#comunidad" aria-label={`Leer: ${item.title}`}><img src={item.image} alt={item.title} /><span>{item.label}</span></a>
+          <Link className={`news-art ${item.art}`} to="/#comunidad" aria-label={`Leer: ${item.title}`}><img src={item.image} alt={item.title} /><span>{item.label}</span></Link>
           <div className="news-info"><h3>{item.title}</h3><time>{item.date}</time><p>{item.text}</p></div>
         </article>)}
       </div>
@@ -176,7 +189,7 @@ function Shop() {
           </div>
           <div className="shop-info">
             <div><span className="shop-genre">{game.genre}</span><h3>{game.name}</h3><p>{game.platform}</p></div>
-            <a className="shop-button" href="#comunidad" aria-label={`Consultar ${game.name}`}><span className="shop-button-default">Consultar</span><span className="shop-button-hover" aria-hidden="true">Comprar ahora</span><span aria-hidden="true">→</span></a>
+          <Link className="shop-button" to="/#comunidad" aria-label={`Consultar ${game.name}`}><span className="shop-button-default">Consultar</span><span className="shop-button-hover" aria-hidden="true">Comprar ahora</span><span aria-hidden="true">→</span></Link>
           </div>
         </article>)}
       </div>
@@ -187,16 +200,60 @@ function Shop() {
 function Footer() {
   return (
     <footer className="site-footer" id="comunidad">
-      <div className="footer-brand"><a className="brand" href="#inicio"><span className="brand-mark"><img src={blackBullsEmblem} alt="" /></span><span>NOE<span className="brand-accent">GAMING</span></span></a><p>Juega. Explora. Disfruta.</p></div>
-      <div className="footer-links"><strong>Explora</strong><a href="#inicio">Inicio</a><a href="#categorias">Categorías</a><a href="#juegos">Juegos</a><a href="#tienda">Tienda</a><a href="#novedades">Novedades</a></div>
+      <div className="footer-brand"><Link className="brand" to="/"><span className="brand-mark"><img src={blackBullsEmblem} alt="" /></span><span>NOE<span className="brand-accent">GAMING</span></span></Link><p>Juega. Explora. Disfruta.</p></div>
+      <div className="footer-links"><strong>Explora</strong><Link to="/">Inicio</Link><Link to="/#categorias">Categorías</Link><Link to="/catalogo">Juegos</Link><Link to="/favoritos">Favoritos</Link><Link to="/#tienda">Tienda</Link><Link to="/#novedades">Novedades</Link></div>
       <div className="footer-social"><strong>Síguenos</strong><div><a href="https://instagram.com" aria-label="Instagram" target="_blank" rel="noreferrer"><img className="social-icon" src={instagramLogo} alt="" /></a><a href="https://youtube.com" aria-label="YouTube" target="_blank" rel="noreferrer"><img className="social-icon" src={youtubeLogo} alt="" /></a><a href="https://discord.com" aria-label="Discord" target="_blank" rel="noreferrer"><img className="social-icon" src={discordLogo} alt="" /></a></div></div>
       <small>© 2026 Noegaming.<br />Todos los derechos reservados.</small>
     </footer>
   )
 }
 
+function Inicio({ favoritos, onToggleFavorito }) {
+  return <><Hero /><div className="content-wrap"><Categories /><Games favoritos={favoritos} onToggleFavorito={onToggleFavorito} /><Shop /><News /></div></>
+}
+
 function App() {
-  return <div className="page-shell"><Header /><main><Hero /><div className="content-wrap"><Categories /><Games /><Shop /><News /></div></main><Footer /></div>
+  const location = useLocation()
+  const [favoritos, setFavoritos] = useState(() => {
+    try {
+      const guardados = JSON.parse(localStorage.getItem('noegaming-favoritos') || '[]')
+      return Array.isArray(guardados) ? guardados : []
+    } catch {
+      return []
+    }
+  })
+
+  useEffect(() => {
+    localStorage.setItem('noegaming-favoritos', JSON.stringify(favoritos))
+  }, [favoritos])
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = decodeURIComponent(location.hash.slice(1))
+      requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }))
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }, [location.pathname, location.hash])
+
+  const cambiarFavorito = (id) => {
+    setFavoritos((actuales) => actuales.includes(id)
+      ? actuales.filter((favorito) => favorito !== id)
+      : [...actuales, id])
+  }
+
+  return <div className="page-shell">
+    <Header cantidadFavoritos={favoritos.length} />
+    <main>
+      <Routes>
+        <Route path="/" element={<Inicio favoritos={favoritos} onToggleFavorito={cambiarFavorito} />} />
+        <Route path="/catalogo" element={<CatalogoJuegos juegos={games} favoritos={favoritos} onToggleFavorito={cambiarFavorito} />} />
+        <Route path="/favoritos" element={<Favoritos juegos={games} favoritos={favoritos} onToggleFavorito={cambiarFavorito} />} />
+        <Route path="*" element={<div className="content-wrap route-content"><section className="content-section"><h2>Página no encontrada</h2><Link className="text-link" to="/">Volver al inicio →</Link></section></div>} />
+      </Routes>
+    </main>
+    <Footer />
+  </div>
 }
 
 export default App

@@ -346,6 +346,66 @@
   filter: invert(1) contrast(100) sepia(1) saturate(650%) hue-rotate(4deg) brightness(1.08);
 }
 
+.main-nav a { display: inline-flex; align-items: center; gap: 4px; }
+.nav-favorites-count, .favorites-count {
+  min-width: 19px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: #ead18a;
+  color: #21190c;
+  font-size: 9px;
+  font-weight: 800;
+  text-align: center;
+}
+.favorite-toggle {
+  position: absolute;
+  z-index: 3;
+  top: 9px;
+  right: 9px;
+  width: 31px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #fff9;
+  border-radius: 50%;
+  background: #15120fbd;
+  color: #fff;
+  cursor: pointer;
+  font-size: 19px;
+  line-height: 1;
+  transition: transform .18s, background .18s, color .18s;
+}
+.favorite-toggle:hover { transform: scale(1.08); }
+.favorite-toggle.is-favorite { background: #ead18a; color: #7d2028; }
+.route-content { min-height: calc(100vh - 190px); }
+.catalog-section, .favorites-section { padding-top: 34px; padding-bottom: 42px; }
+.catalog-section .section-title, .favorites-section .section-title { align-items: center; margin-top: 4px; }
+.empty-favorites {
+  min-height: 300px;
+  padding: 38px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px dashed #cfc4aa;
+  border-radius: 10px;
+  background: #fffdf8;
+}
+.empty-favorites-icon { color: #bd9648; font-size: 42px; line-height: 1; }
+.empty-favorites h3 { margin: 13px 0 5px; color: #211d17; font-size: 18px; }
+.empty-favorites p { max-width: 390px; margin: 0 0 18px; color: #6c6456; font-size: 12px; line-height: 1.6; }
+.empty-favorites .button { min-height: 38px; }
+.footer-links a { color: #c0cadd !important; }
+
+@media (min-width: 761px) and (max-width: 1000px) {
+  .site-header { padding-inline: 18px; gap: 12px; }
+  .brand { gap: 7px; font-size: 16px; }
+  .main-nav { gap: 12px; }
+  .main-nav a { font-size: 10px; }
+  .search-box { width: 155px; }
+}
+
 .shop-section { padding-bottom: 28px; }
 .shop-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .shop-card { overflow: hidden; border: 1px solid #3f3524; border-radius: 9px; background: #1b1814; box-shadow: 0 6px 18px #241a0d16; }
