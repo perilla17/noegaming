@@ -4,7 +4,7 @@ import JuegoCard from './JuegoCard.jsx'
 function CatalogoJuegos({ juegos, favoritos, onToggleFavorito }) {
   const [searchParams, setSearchParams] = useSearchParams()
   const categoriaSeleccionada = searchParams.get('categoria') || 'Todas'
-  const categorias = ['Todas', 'Estrategia', 'Acción', 'Deportes']
+  const categorias = ['Todas', 'Acción', 'Aventura', 'Deportes']
   const juegosVisibles = categoriaSeleccionada === 'Todas'
     ? juegos
     : juegos.filter((juego) => juego.category === categoriaSeleccionada)

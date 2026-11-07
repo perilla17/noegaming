@@ -3,10 +3,15 @@ import { Link, Route, Routes, useLocation } from 'react-router'
 import CatalogoJuegos from './CatalogoJuegos.jsx'
 import Favoritos from './Favoritos.jsx'
 import JuegoCard from './JuegoCard.jsx'
-import codImage from './assets/games/cod.jpeg'
-import forzaImage from './assets/games/Forza.jpeg'
-import minecraftImage from './assets/games/minecraft.jpg'
-import zeldaImage from './assets/games/Zelda.jpeg'
+import fortniteImage from './assets/games/fortnite.jpg'
+import battlefieldImage from './assets/games/battlefield-6.jpg'
+import doomImage from './assets/games/doom-the-dark-ages.jpg'
+import assassinsCreedImage from './assets/games/assassins-creed-shadows.jpg'
+import indianaJonesImage from './assets/games/indiana-jones-great-circle.jpg'
+import tombRaiderImage from './assets/games/tomb-raider-legacy-of-atlantis.jpg'
+import fc27Image from './assets/games/fc-27.jpg'
+import nba27Image from './assets/games/nba-2k27.jpg'
+import madden27Image from './assets/games/madden-nfl-27.jpg'
 import ps5Image from './assets/games/ps5-pro.jpg'
 import redDeadImage from './assets/games/red-dead-redemption-2.jpg'
 import gtaImage from './assets/games/gta-vi.jpg'
@@ -15,10 +20,6 @@ import blackBullsEmblem from './assets/games/black-bulls-emblem.png'
 import blackCloverImage from './assets/games/black-clover.jpg'
 import nierAutomataImage from './assets/games/nier-automata.jpg'
 import marvelSpidermanImage from './assets/games/marvel-spiderman.jpg'
-import ageOfEmpiresCover from './assets/games/age-of-empires-iv.svg'
-import civilizationCover from './assets/games/civilization-vi.svg'
-import eaSportsFcCover from './assets/games/ea-sports-fc-26.svg'
-import nba2kCover from './assets/games/nba-2k26.svg'
 import discordLogo from './assets/social/discord.png'
 import youtubeLogo from './assets/social/youtube.png'
 import instagramLogo from './assets/social/instagram.png'
@@ -26,28 +27,23 @@ import './App.css'
 
 const categories = [
   { name: 'Acción', icon: '⚔', color: 'action' },
+  { name: 'Aventura', icon: '▲', color: 'adventure' },
   { name: 'Deportes', icon: '◉', color: 'sports' },
-  { name: 'Estrategia', icon: '♞', color: 'strategy' },
-]
-
-const games = [
-  { id: 'forza-horizon-6', name: 'Forza Horizon 6', genre: 'Carreras', description: 'Corre sin límites en un mundo abierto lleno de velocidad.', art: 'forza', image: forzaImage },
-  { id: 'the-legend-of-zelda', name: 'The Legend of Zelda', genre: 'Aventura', description: 'Explora tierras misteriosas y vive una aventura épica.', art: 'zelda', image: zeldaImage },
-  { id: 'call-of-duty-black-ops-6', name: 'Call of Duty: Black Ops 6', genre: 'Shooter', description: 'Forma tu escuadrón y lánzate a una intensa misión.', art: 'warzone', image: codImage },
-  { id: 'minecraft', name: 'Minecraft', genre: 'Sandbox', description: 'Construye, explora y crea tu propio mundo.', art: 'minecraft', image: minecraftImage },
 ]
 
 const catalogGames = [
-  { id: 'minecraft', name: 'Minecraft', genre: 'Estrategia', category: 'Estrategia', description: 'Planifica, construye y sobrevive en un mundo creado por ti.', art: 'minecraft', image: minecraftImage },
-  { id: 'age-of-empires-iv', name: 'Age of Empires IV', genre: 'Estrategia', category: 'Estrategia', description: 'Lidera una civilización y conquista nuevas tierras.', art: 'strategy', image: ageOfEmpiresCover },
-  { id: 'civilization-vi', name: 'Sid Meier’s Civilization VI', genre: 'Estrategia', category: 'Estrategia', description: 'Construye un imperio y guía tu civilización a través de la historia.', art: 'strategy', image: civilizationCover },
-  { id: 'call-of-duty-black-ops-6', name: 'Call of Duty: Black Ops 6', genre: 'Acción', category: 'Acción', description: 'Forma tu escuadrón y lánzate a una intensa misión.', art: 'warzone', image: codImage },
-  { id: 'red-dead-redemption-2', name: 'Red Dead Redemption II', genre: 'Acción', category: 'Acción', description: 'Recorre el Viejo Oeste en una historia de forajidos.', art: 'neon', image: redDeadImage },
-  { id: 'grand-theft-auto-vi', name: 'Grand Theft Auto VI', genre: 'Acción', category: 'Acción', description: 'Explora Vice City en una nueva aventura de mundo abierto.', art: 'wilds', image: gtaImage },
-  { id: 'forza-horizon-6', name: 'Forza Horizon 6', genre: 'Deportes', category: 'Deportes', description: 'Corre sin límites en un mundo abierto lleno de velocidad.', art: 'forza', image: forzaImage },
-  { id: 'ea-sports-fc-26', name: 'EA SPORTS FC 26', genre: 'Deportes', category: 'Deportes', description: 'Compite con tus equipos favoritos en la cancha.', art: 'sports', image: eaSportsFcCover },
-  { id: 'nba-2k26', name: 'NBA 2K26', genre: 'Deportes', category: 'Deportes', description: 'Vive la emoción del baloncesto y lleva a tu equipo a la victoria.', art: 'sports', image: nba2kCover },
+  { id: 'fortnite', name: 'Fortnite', genre: 'Acción', category: 'Acción', description: 'Entra al Battle Royale y compite en la temporada actual.', art: 'action', image: fortniteImage },
+  { id: 'battlefield-6', name: 'Battlefield 6', genre: 'Acción', category: 'Acción', description: 'Lucha en combates modernos con tu escuadrón.', art: 'action', image: battlefieldImage },
+  { id: 'doom-the-dark-ages', name: 'DOOM: The Dark Ages', genre: 'Acción', category: 'Acción', description: 'Enfréntate a demonios en una guerra medieval de ciencia ficción.', art: 'action', image: doomImage },
+  { id: 'assassins-creed-shadows', name: 'Assassin’s Creed Shadows', genre: 'Aventura', category: 'Aventura', description: 'Explora el Japón feudal desde las historias de Naoe y Yasuke.', art: 'adventure', image: assassinsCreedImage },
+  { id: 'indiana-jones-great-circle', name: 'Indiana Jones y el Gran Círculo', genre: 'Aventura', category: 'Aventura', description: 'Resuelve misterios y recorre el mundo junto a Indiana Jones.', art: 'adventure', image: indianaJonesImage },
+  { id: 'tomb-raider-legacy-of-atlantis', name: 'Tomb Raider: Legacy of Atlantis', genre: 'Aventura', category: 'Aventura', description: 'Nueva aventura de Lara Croft. Lanzamiento anunciado para febrero de 2027.', art: 'adventure', image: tombRaiderImage },
+  { id: 'ea-sports-fc-27', name: 'EA SPORTS FC 27', genre: 'Deportes', category: 'Deportes', description: 'Juega fútbol con clubes y selecciones del mundo.', art: 'sports', image: fc27Image },
+  { id: 'nba-2k27', name: 'NBA 2K27', genre: 'Deportes', category: 'Deportes', description: 'Compite en baloncesto y crea tu camino hasta la NBA.', art: 'sports', image: nba27Image },
+  { id: 'madden-nfl-27', name: 'Madden NFL 27', genre: 'Deportes', category: 'Deportes', description: 'Vive la temporada actual de fútbol americano de la NFL.', art: 'sports', image: madden27Image },
 ]
+
+const games = catalogGames.slice(0, 4)
 
 const news = [
   { label: 'LANZAMIENTO', title: 'PlayStation 5 Pro', date: '10 oct. 2025', text: 'Una nueva generación de rendimiento para tus juegos favoritos.', art: 'console', image: ps5Image },
