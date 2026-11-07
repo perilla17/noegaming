@@ -437,3 +437,43 @@
   .shop-grid { grid-template-columns: 1fr; gap: 12px; }
   .shop-art { aspect-ratio: 16 / 9; }
 }
+
+.game-card { display: flex; flex-direction: column; }
+.game-card .game-info { flex: 1; }
+.favorite-button {
+  margin: 0 10px 10px;
+  min-height: 34px;
+  padding: 7px 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid #bd9648;
+  border-radius: 6px;
+  background: transparent;
+  color: #7a5c1c;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  transition: transform .18s, background .18s, color .18s, box-shadow .18s;
+}
+.favorite-button:hover, .favorite-button:focus-visible { transform: translateY(-1px); background: #ead18a55; box-shadow: 0 4px 10px #b18a3f30; }
+.favorite-button.is-favorite { border-color: transparent; background: linear-gradient(105deg, #ead18a, #bd9648); color: #21190c; }
+.favorite-button.is-favorite:hover, .favorite-button.is-favorite:focus-visible { background: linear-gradient(105deg, #f0d996, #c9a355); }
+.game-card.is-favorite-card { border-color: #bd9648; }
+
+@media (min-width: 761px) and (max-width: 1000px) {
+  .game-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .favorite-button { margin: 0 8px 8px; font-size: 9px; }
+}
+@media (max-width: 420px) {
+  .game-grid { grid-template-columns: 1fr; }
+  .game-info h3 { font-size: 13px; }
+  .game-info p { font-size: 11px; }
+  .favorite-button { min-height: 38px; font-size: 11px; }
+}
