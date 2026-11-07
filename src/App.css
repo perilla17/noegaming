@@ -40,11 +40,13 @@
 @media (max-width: 390px) { .search-box { width: 120px; }.brand { font-size: 15px; }.category-grid { gap: 6px; }.category-card strong { font-size: 9px; }.game-art { aspect-ratio: 16 / 9; } }
 .game-art img {
   position: absolute;
-  inset: 0;
-  z-index: -2;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  inset: 6px;
+  z-index: 0;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  object-fit: contain;
+  object-position: center;
+  background: #15120f;
   transition: transform .35s;
 }
 .game-card:hover .game-art img { transform: scale(1.04); }
