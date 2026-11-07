@@ -15,6 +15,10 @@ import blackBullsEmblem from './assets/games/black-bulls-emblem.png'
 import blackCloverImage from './assets/games/black-clover.jpg'
 import nierAutomataImage from './assets/games/nier-automata.jpg'
 import marvelSpidermanImage from './assets/games/marvel-spiderman.jpg'
+import ageOfEmpiresCover from './assets/games/age-of-empires-iv.svg'
+import civilizationCover from './assets/games/civilization-vi.svg'
+import eaSportsFcCover from './assets/games/ea-sports-fc-26.svg'
+import nba2kCover from './assets/games/nba-2k26.svg'
 import discordLogo from './assets/social/discord.png'
 import youtubeLogo from './assets/social/youtube.png'
 import instagramLogo from './assets/social/instagram.png'
@@ -22,7 +26,6 @@ import './App.css'
 
 const categories = [
   { name: 'Acción', icon: '⚔', color: 'action' },
-  { name: 'Aventura', icon: '▲', color: 'adventure' },
   { name: 'Deportes', icon: '◉', color: 'sports' },
   { name: 'Estrategia', icon: '♞', color: 'strategy' },
 ]
@@ -35,9 +38,15 @@ const games = [
 ]
 
 const catalogGames = [
-  ...games,
-  { id: 'red-dead-redemption-2', name: 'Red Dead Redemption II', genre: 'Acción y aventura', description: 'Recorre el Viejo Oeste y acompaña a Arthur Morgan en una historia de forajidos.', art: 'neon', image: redDeadImage },
-  { id: 'grand-theft-auto-vi', name: 'Grand Theft Auto VI', genre: 'Mundo abierto', description: 'Explora Vice City y sus alrededores en una nueva aventura criminal.', art: 'wilds', image: gtaImage },
+  { id: 'minecraft', name: 'Minecraft', genre: 'Estrategia', category: 'Estrategia', description: 'Planifica, construye y sobrevive en un mundo creado por ti.', art: 'minecraft', image: minecraftImage },
+  { id: 'age-of-empires-iv', name: 'Age of Empires IV', genre: 'Estrategia', category: 'Estrategia', description: 'Lidera una civilización y conquista nuevas tierras.', art: 'strategy', image: ageOfEmpiresCover },
+  { id: 'civilization-vi', name: 'Sid Meier’s Civilization VI', genre: 'Estrategia', category: 'Estrategia', description: 'Construye un imperio y guía tu civilización a través de la historia.', art: 'strategy', image: civilizationCover },
+  { id: 'call-of-duty-black-ops-6', name: 'Call of Duty: Black Ops 6', genre: 'Acción', category: 'Acción', description: 'Forma tu escuadrón y lánzate a una intensa misión.', art: 'warzone', image: codImage },
+  { id: 'red-dead-redemption-2', name: 'Red Dead Redemption II', genre: 'Acción', category: 'Acción', description: 'Recorre el Viejo Oeste en una historia de forajidos.', art: 'neon', image: redDeadImage },
+  { id: 'grand-theft-auto-vi', name: 'Grand Theft Auto VI', genre: 'Acción', category: 'Acción', description: 'Explora Vice City en una nueva aventura de mundo abierto.', art: 'wilds', image: gtaImage },
+  { id: 'forza-horizon-6', name: 'Forza Horizon 6', genre: 'Deportes', category: 'Deportes', description: 'Corre sin límites en un mundo abierto lleno de velocidad.', art: 'forza', image: forzaImage },
+  { id: 'ea-sports-fc-26', name: 'EA SPORTS FC 26', genre: 'Deportes', category: 'Deportes', description: 'Compite con tus equipos favoritos en la cancha.', art: 'sports', image: eaSportsFcCover },
+  { id: 'nba-2k26', name: 'NBA 2K26', genre: 'Deportes', category: 'Deportes', description: 'Vive la emoción del baloncesto y lleva a tu equipo a la victoria.', art: 'sports', image: nba2kCover },
 ]
 
 const news = [
@@ -149,7 +158,7 @@ function Categories() {
       <SectionTitle overline="ELIGE TU ESTILO" title="Categorías" />
       <p className="section-intro">Encuentra el tipo de juego que más te gusta.</p>
       <div className="category-grid">
-        {categories.map((category) => <a className={`category-card ${category.color}`} href="#juegos" key={category.name}><span>{category.icon}</span><strong>{category.name}</strong></a>)}
+        {categories.map((category) => <Link className={`category-card ${category.color}`} to={`/catalogo?categoria=${encodeURIComponent(category.name)}`} key={category.name}><span>{category.icon}</span><strong>{category.name}</strong></Link>)}
       </div>
     </section>
   )

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title">
+  <title id="title">Age of Empires IV</title>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#caa16b"/><stop offset=".58" stop-color="#574331"/><stop offset="1" stop-color="#1b1714"/></linearGradient>
+    <linearGradient id="sun" x2="0" y2="1"><stop stop-color="#f5d791"/><stop offset="1" stop-color="#a96834"/></linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#sky)"/>
+  <circle cx="464" cy="104" r="55" fill="url(#sun)" opacity=".9"/>
+  <path d="M0 232 126 156l101 71 91-91 108 101 90-72 124 70v125H0Z" fill="#29221a"/>
+  <path d="M76 210h120v150H76zM95 175h82v35H95zM118 130h36v45h-36zM450 228h104v132H450zM469 187h65v41h-65zM488 144h28v43h-28z" fill="#161515"/>
+  <path d="M0 282q170-45 337 13t303-3v68H0Z" fill="#171615"/>
+  <text x="32" y="307" fill="#f3dfb3" font-family="Georgia,serif" font-size="27" letter-spacing="5">AGE OF EMPIRES IV</text>
+  <text x="34" y="333" fill="#d6b979" font-family="Arial,sans-serif" font-size="11" letter-spacing="4">ESTRATEGIA · CONSTRUYE TU IMPERIO</text>
+</svg>
