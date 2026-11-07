@@ -10,7 +10,9 @@ function CatalogoJuegos({ juegos, favoritos, onToggleFavorito }) {
           <h2 id="catalogo-titulo">Catálogo de juegos</h2>
           <Link className="text-link" to="/favoritos">Ver favoritos ({favoritos.length}) →</Link>
         </div>
-        <p className="section-intro">Explora los títulos disponibles y guarda los que quieras volver a encontrar.</p>
+        <p className="section-intro">
+          {juegos.length} videojuegos disponibles. Explora los títulos y guarda los que quieras volver a encontrar.
+        </p>
         <div className="game-grid">
           {juegos.map((juego) => (
             <JuegoCard
