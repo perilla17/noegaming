@@ -34,6 +34,12 @@ const games = [
   { id: 'minecraft', name: 'Minecraft', genre: 'Sandbox', description: 'Construye, explora y crea tu propio mundo.', art: 'minecraft', image: minecraftImage },
 ]
 
+const catalogGames = [
+  ...games,
+  { id: 'red-dead-redemption-2', name: 'Red Dead Redemption II', genre: 'Acción y aventura', description: 'Recorre el Viejo Oeste y acompaña a Arthur Morgan en una historia de forajidos.', art: 'neon', image: redDeadImage },
+  { id: 'grand-theft-auto-vi', name: 'Grand Theft Auto VI', genre: 'Mundo abierto', description: 'Explora Vice City y sus alrededores en una nueva aventura criminal.', art: 'wilds', image: gtaImage },
+]
+
 const news = [
   { label: 'LANZAMIENTO', title: 'PlayStation 5 Pro', date: '10 oct. 2025', text: 'Una nueva generación de rendimiento para tus juegos favoritos.', art: 'console', image: ps5Image },
   { label: 'AVENTURA', title: 'Red Dead Redemption II', date: '8 oct. 2025', text: 'Explora el salvaje oeste en una aventura inolvidable.', art: 'neon', image: redDeadImage },
@@ -247,8 +253,8 @@ function App() {
     <main>
       <Routes>
         <Route path="/" element={<Inicio favoritos={favoritos} onToggleFavorito={cambiarFavorito} />} />
-        <Route path="/catalogo" element={<CatalogoJuegos juegos={games} favoritos={favoritos} onToggleFavorito={cambiarFavorito} />} />
-        <Route path="/favoritos" element={<Favoritos juegos={games} favoritos={favoritos} onToggleFavorito={cambiarFavorito} />} />
+        <Route path="/catalogo" element={<CatalogoJuegos juegos={catalogGames} favoritos={favoritos} onToggleFavorito={cambiarFavorito} />} />
+        <Route path="/favoritos" element={<Favoritos juegos={catalogGames} favoritos={favoritos} onToggleFavorito={cambiarFavorito} />} />
         <Route path="*" element={<div className="content-wrap route-content"><section className="content-section"><h2>Página no encontrada</h2><Link className="text-link" to="/">Volver al inicio →</Link></section></div>} />
       </Routes>
     </main>
