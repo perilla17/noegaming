@@ -3,10 +3,18 @@ import { Link, Route, Routes, useLocation } from 'react-router'
 import CatalogoJuegos from './CatalogoJuegos.jsx'
 import Favoritos from './Favoritos.jsx'
 import JuegoCard from './JuegoCard.jsx'
-import codImage from './assets/games/cod.jpeg'
-import forzaImage from './assets/games/Forza.jpeg'
-import minecraftImage from './assets/games/minecraft.jpg'
-import zeldaImage from './assets/games/Zelda.jpeg'
+import fortniteImage from './assets/games/fortnite.jpg'
+import battlefieldImage from './assets/games/battlefield-6.jpg'
+import doomImage from './assets/games/doom-the-dark-ages.jpg'
+import assassinsCreedImage from './assets/games/assassins-creed-shadows.jpg'
+import indianaJonesImage from './assets/games/indiana-jones-great-circle.jpg'
+import tombRaiderImage from './assets/games/tomb-raider-legacy-of-atlantis.jpg'
+import fc27Image from './assets/games/fc-27.jpg'
+import nba27Image from './assets/games/nba-2k27.jpg'
+import madden27Image from './assets/games/madden-nfl-27.jpg'
+import civilizationVIIImage from './assets/games/civilization-vii.jpg'
+import europaUniversalisVImage from './assets/games/europa-universalis-v.jpg'
+import anno117Image from './assets/games/anno-117-pax-romana.jpg'
 import ps5Image from './assets/games/ps5-pro.jpg'
 import redDeadImage from './assets/games/red-dead-redemption-2.jpg'
 import gtaImage from './assets/games/gta-vi.jpg'
@@ -27,12 +35,22 @@ const categories = [
   { name: 'Estrategia', icon: '♞', color: 'strategy' },
 ]
 
-const games = [
-  { id: 'forza-horizon-6', name: 'Forza Horizon 6', genre: 'Carreras', description: 'Corre sin límites en un mundo abierto lleno de velocidad.', art: 'forza', image: forzaImage },
-  { id: 'the-legend-of-zelda', name: 'The Legend of Zelda', genre: 'Aventura', description: 'Explora tierras misteriosas y vive una aventura épica.', art: 'zelda', image: zeldaImage },
-  { id: 'call-of-duty-black-ops-6', name: 'Call of Duty: Black Ops 6', genre: 'Shooter', description: 'Forma tu escuadrón y lánzate a una intensa misión.', art: 'warzone', image: codImage },
-  { id: 'minecraft', name: 'Minecraft', genre: 'Sandbox', description: 'Construye, explora y crea tu propio mundo.', art: 'minecraft', image: minecraftImage },
+const catalogGames = [
+  { id: 'fortnite', name: 'Fortnite', genre: 'Acción', category: 'Acción', description: 'Entra al Battle Royale y compite en la temporada actual.', art: 'action', image: fortniteImage },
+  { id: 'battlefield-6', name: 'Battlefield 6', genre: 'Acción', category: 'Acción', description: 'Lucha en combates modernos con tu escuadrón.', art: 'action', image: battlefieldImage },
+  { id: 'doom-the-dark-ages', name: 'DOOM: The Dark Ages', genre: 'Acción', category: 'Acción', description: 'Enfréntate a demonios en una guerra medieval de ciencia ficción.', art: 'action', image: doomImage },
+  { id: 'assassins-creed-shadows', name: 'Assassin’s Creed Shadows', genre: 'Aventura', category: 'Aventura', description: 'Explora el Japón feudal desde las historias de Naoe y Yasuke.', art: 'adventure', image: assassinsCreedImage },
+  { id: 'indiana-jones-great-circle', name: 'Indiana Jones y el Gran Círculo', genre: 'Aventura', category: 'Aventura', description: 'Resuelve misterios y recorre el mundo junto a Indiana Jones.', art: 'adventure', image: indianaJonesImage },
+  { id: 'tomb-raider-legacy-of-atlantis', name: 'Tomb Raider: Legacy of Atlantis', genre: 'Aventura', category: 'Aventura', description: 'Nueva aventura de Lara Croft. Lanzamiento anunciado para febrero de 2027.', art: 'adventure', image: tombRaiderImage },
+  { id: 'ea-sports-fc-27', name: 'EA SPORTS FC 27', genre: 'Deportes', category: 'Deportes', description: 'Juega fútbol con clubes y selecciones del mundo.', art: 'sports', image: fc27Image },
+  { id: 'nba-2k27', name: 'NBA 2K27', genre: 'Deportes', category: 'Deportes', description: 'Compite en baloncesto y crea tu camino hasta la NBA.', art: 'sports', image: nba27Image },
+  { id: 'madden-nfl-27', name: 'Madden NFL 27', genre: 'Deportes', category: 'Deportes', description: 'Vive la temporada actual de fútbol americano de la NFL.', art: 'sports', image: madden27Image },
+  { id: 'civilization-vii', name: 'Sid Meier’s Civilization VII', genre: 'Estrategia', category: 'Estrategia', description: 'Construye una civilización y guía su evolución a través de la historia.', art: 'strategy', image: civilizationVIIImage },
+  { id: 'europa-universalis-v', name: 'Europa Universalis V', genre: 'Estrategia', category: 'Estrategia', description: 'Dirige una nación con diplomacia, comercio y campañas militares.', art: 'strategy', image: europaUniversalisVImage },
+  { id: 'anno-117-pax-romana', name: 'Anno 117: Pax Romana', genre: 'Estrategia', category: 'Estrategia', description: 'Gobierna provincias romanas y construye ciudades en el año 117.', art: 'strategy', image: anno117Image },
 ]
+
+const games = catalogGames.slice(0, 4)
 
 const news = [
   { label: 'LANZAMIENTO', title: 'PlayStation 5 Pro', date: '10 oct. 2025', text: 'Una nueva generación de rendimiento para tus juegos favoritos.', art: 'console', image: ps5Image },
@@ -143,7 +161,7 @@ function Categories() {
       <SectionTitle overline="ELIGE TU ESTILO" title="Categorías" />
       <p className="section-intro">Encuentra el tipo de juego que más te gusta.</p>
       <div className="category-grid">
-        {categories.map((category) => <a className={`category-card ${category.color}`} href="#juegos" key={category.name}><span>{category.icon}</span><strong>{category.name}</strong></a>)}
+        {categories.map((category) => <Link className={`category-card ${category.color}`} to={`/catalogo?categoria=${encodeURIComponent(category.name)}`} key={category.name}><span>{category.icon}</span><strong>{category.name}</strong></Link>)}
       </div>
     </section>
   )
@@ -247,8 +265,8 @@ function App() {
     <main>
       <Routes>
         <Route path="/" element={<Inicio favoritos={favoritos} onToggleFavorito={cambiarFavorito} />} />
-        <Route path="/catalogo" element={<CatalogoJuegos juegos={games} favoritos={favoritos} onToggleFavorito={cambiarFavorito} />} />
-        <Route path="/favoritos" element={<Favoritos juegos={games} favoritos={favoritos} onToggleFavorito={cambiarFavorito} />} />
+        <Route path="/catalogo" element={<CatalogoJuegos juegos={catalogGames} favoritos={favoritos} onToggleFavorito={cambiarFavorito} />} />
+        <Route path="/favoritos" element={<Favoritos juegos={catalogGames} favoritos={favoritos} onToggleFavorito={cambiarFavorito} />} />
         <Route path="*" element={<div className="content-wrap route-content"><section className="content-section"><h2>Página no encontrada</h2><Link className="text-link" to="/">Volver al inicio →</Link></section></div>} />
       </Routes>
     </main>
