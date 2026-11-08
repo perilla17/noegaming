@@ -33,14 +33,15 @@ function CatalogoJuegos({ juegos, favoritos, onToggleFavorito }) {
             </button>
           ))}
         </div>
-        <div className="game-grid">
+        <div className="catalog-bootstrap-grid row g-3">
           {juegosVisibles.map((juego) => (
-            <JuegoCard
-              key={juego.id}
-              juego={juego}
-              esFavorito={favoritos.includes(juego.id)}
-              onToggleFavorito={onToggleFavorito}
-            />
+            <div className="col-12 col-sm-6 col-lg-4" key={juego.id}>
+              <JuegoCard
+                juego={juego}
+                esFavorito={favoritos.includes(juego.id)}
+                onToggleFavorito={onToggleFavorito}
+              />
+            </div>
           ))}
         </div>
       </section>
