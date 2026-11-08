@@ -12,6 +12,9 @@ import tombRaiderImage from './assets/games/tomb-raider-legacy-of-atlantis.jpg'
 import fc27Image from './assets/games/fc-27.jpg'
 import nba27Image from './assets/games/nba-2k27.jpg'
 import madden27Image from './assets/games/madden-nfl-27.jpg'
+import civilizationVIIImage from './assets/games/civilization-vii.jpg'
+import europaUniversalisVImage from './assets/games/europa-universalis-v.jpg'
+import anno117Image from './assets/games/anno-117-pax-romana.jpg'
 import ps5Image from './assets/games/ps5-pro.jpg'
 import redDeadImage from './assets/games/red-dead-redemption-2.jpg'
 import gtaImage from './assets/games/gta-vi.jpg'
@@ -29,6 +32,7 @@ const categories = [
   { name: 'Acción', icon: '⚔', color: 'action' },
   { name: 'Aventura', icon: '▲', color: 'adventure' },
   { name: 'Deportes', icon: '◉', color: 'sports' },
+  { name: 'Estrategia', icon: '♞', color: 'strategy' },
 ]
 
 const catalogGames = [
@@ -41,6 +45,9 @@ const catalogGames = [
   { id: 'ea-sports-fc-27', name: 'EA SPORTS FC 27', genre: 'Deportes', category: 'Deportes', description: 'Juega fútbol con clubes y selecciones del mundo.', art: 'sports', image: fc27Image },
   { id: 'nba-2k27', name: 'NBA 2K27', genre: 'Deportes', category: 'Deportes', description: 'Compite en baloncesto y crea tu camino hasta la NBA.', art: 'sports', image: nba27Image },
   { id: 'madden-nfl-27', name: 'Madden NFL 27', genre: 'Deportes', category: 'Deportes', description: 'Vive la temporada actual de fútbol americano de la NFL.', art: 'sports', image: madden27Image },
+  { id: 'civilization-vii', name: 'Sid Meier’s Civilization VII', genre: 'Estrategia', category: 'Estrategia', description: 'Construye una civilización y guía su evolución a través de la historia.', art: 'strategy', image: civilizationVIIImage },
+  { id: 'europa-universalis-v', name: 'Europa Universalis V', genre: 'Estrategia', category: 'Estrategia', description: 'Dirige una nación con diplomacia, comercio y campañas militares.', art: 'strategy', image: europaUniversalisVImage },
+  { id: 'anno-117-pax-romana', name: 'Anno 117: Pax Romana', genre: 'Estrategia', category: 'Estrategia', description: 'Gobierna provincias romanas y construye ciudades en el año 117.', art: 'strategy', image: anno117Image },
 ]
 
 const games = catalogGames.slice(0, 4)
