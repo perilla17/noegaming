@@ -6,9 +6,11 @@ Tienda digital de videojuegos desarrollada con React y Vite.
 - Node.js
 - npm
 
-## Instalación
+## Descargar e instalar
 
 ```bash
+git clone https://github.com/perilla17/noegaming.git
+cd noegaming
 npm install
 ```
 
